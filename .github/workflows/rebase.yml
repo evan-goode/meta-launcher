@@ -2,6 +2,7 @@ name: Rebase on upstream master
 on:
   schedule:
     - cron:  '0 0 * * *'
+  workflow_dispatch:
 jobs:
   merge:
     runs-on: ubuntu-latest
@@ -15,6 +16,6 @@ jobs:
           git pull --unshallow
 
           git remote add upstream https://github.com/PrismLauncher/meta-launcher.git
-          git pull --rebase upstream
+          git pull --rebase upstream master
 
           git push --force origin master
