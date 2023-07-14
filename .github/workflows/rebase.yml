@@ -1,0 +1,20 @@
+name: Rebase on upstream master
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Rebase on upstream
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+          git pull --unshallow
+
+          git remote add upstream https://github.com/PrismLauncher/meta-launcher.git
+          git pull --rebase upstream
+
+          git push --force origin master
